@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  go-web:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    working_dir: /docker-go
+    ports:
+      - "8080:8080"
+    entrypoint: ["/docker-go"]
+    volumes:
+      - ./:/docker-go
