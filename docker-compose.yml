@@ -4,7 +4,9 @@ services:
     build:
       context: ./   
       dockerfile: Dockerfile
-    restart: 'no'
+    restart: unless-stopped
+    volumes:
+      - ./:/docker-go
     ports:
       - "8080:8080"
-    command: ["./run.sh"]
+    command: ["./app"]
