@@ -60,11 +60,44 @@ var albums = []album{
 	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
 }
 
+func consumerData(c *gin.Context) {
+	consumer, err := kafka.NewConsumer(&kafka.ConfigMap{
+		"bootstrap.servers": "broker:39092",
+		"group.id":          "myGroup",
+		"auto.offset.reset": "earliest",
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	consumer.SubscribeTopics([]string{"myTopic", "^aRegex.*[Tt]opic"}, nil)
+
+	var dataOutput []byte
+	for {
+		msg, err := consumer.ReadMessage(-1)
+		if err == nil {
+			panic(msg.Value)
+		} else {
+			// The client will automatically try to recover from all errors.
+			c.IndentedJSON(http.StatusNotFound, gin.H{
+				"message": "album not found",
+				"err":     err,
+				"msg":     msg,
+			})
+		}
+	}
+	c.IndentedJSON(http.StatusOK, gin.H{
+		"message": "Message on %s: %s",
+		"data":    dataOutput,
+	})
+}
+
 func main() {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
 	//router.GET("/consumer", consumer)
 	router.GET("/get-kafka", getKafka)
+	router.GET("/consumer", consumerData)
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, "pong")
 	})
