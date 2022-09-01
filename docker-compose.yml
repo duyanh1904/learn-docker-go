@@ -12,3 +12,9 @@ services:
     extra_hosts:
     - "host.docker.internal:host-gateway"
     command: ["./app"]
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge

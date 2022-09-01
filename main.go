@@ -5,13 +5,13 @@ import (
 	"net/http"
 
 	"github.com/confluentinc/confluent-kafka-go/kafka"
-	"github.com/duyanh1904/learn-docker-go/consumer"
+	_ "github.com/duyanh1904/learn-docker-go/consumer"
 	"github.com/gin-gonic/gin"
 )
 
 func getKafka(c *gin.Context) {
 	// to produce messages
-	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "host.docker.internal:19092"})
+	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": "broker:39092"})
 	if err != nil {
 		panic(err)
 	}
@@ -63,7 +63,6 @@ var albums = []album{
 func main() {
 	router := gin.Default()
 	router.GET("/albums", getAlbums)
-	router.GET("/cai-nay-tao-vua-doi-day", getAlbums)
 	//router.GET("/consumer", consumer)
 	router.GET("/get-kafka", getKafka)
 	router.GET("/", func(c *gin.Context) {
