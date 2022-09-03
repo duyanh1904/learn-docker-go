@@ -9,6 +9,8 @@ import (
 
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		c.Next()
+
 		config := config.GetConfig()
 		reqKey := c.Request.Header.Get("X-Auth-Key")
 		reqSecret := c.Request.Header.Get("X-Auth-Secret")
