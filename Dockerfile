@@ -1,4 +1,4 @@
-FROM golang:1.18
+FROM golang:1.16
 
 WORKDIR /docker-go
 
@@ -19,4 +19,4 @@ RUN go install -mod=mod github.com/githubnemo/CompileDaemon
 
 RUN chmod +x /docker-go
 
-ENTRYPOINT CompileDaemon -build="go build -v -o /docker-go/app" -command="./app"
+ENTRYPOINT CompileDaemon -build="go build -v -o /github.com/duyanh1904/learn-docker-go" -command="./learn-docker-go -e development"

@@ -11,7 +11,7 @@ services:
       - "8080:8080"
     extra_hosts:
     - "host.docker.internal:host-gateway"
-    command: ["./app"]
+    command: ["./learn-docker-go -e development"]
     networks:
       - app
 
