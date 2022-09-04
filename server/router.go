@@ -12,9 +12,11 @@ func NewRouter() *gin.Engine {
 	router.Use(gin.Recovery())
 
 	health := new(controllers.HealthController)
+	post := new(controllers.PostController)
 
-	router.GET("/health", health.Status)
 	router.Use(middlewares.AuthMiddleware())
+	router.GET("/health", health.Status)
+	router.POST("/add", post.CreatePost)
 
 	v1 := router.Group("v1")
 	{

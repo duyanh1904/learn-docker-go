@@ -1,10 +1,9 @@
 package server
 
-import (
-	"os"
-)
+import "github.com/duyanh1904/learn-docker-go/config"
 
 func Init() {
+	config := config.GetConfig()
 	r := NewRouter()
-	r.Run(":" + os.Getenv("PORT"))
+	r.Run(config.GetString("server.port"))
 }

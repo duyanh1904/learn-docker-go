@@ -48,6 +48,20 @@ services:
     volumes:
       - ./kafka-logs:/tmp/kafka-logs
 
+  mongo:
+    image: mongo
+    ports:
+      - "27022:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: unless-stopped
+    networks:
+      - app
+
 networks:
   app:
     driver: bridge
+
+volumes:
+  mongo_data:
+    driver: local
