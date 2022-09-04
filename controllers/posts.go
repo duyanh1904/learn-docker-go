@@ -6,6 +6,7 @@ import (
 	"fmt"
 	model "github.com/duyanh1904/learn-docker-go/models"
 	database "github.com/duyanh1904/learn-docker-go/mongoDb"
+	kafkaRun "github.com/duyanh1904/learn-docker-go/worker"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"io/ioutil"
@@ -47,4 +48,9 @@ func (p PostController) CreatePost(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Posted successfully", "Data": map[string]interface{}{"data": result}})
+}
+
+func (p PostController) RunKafka(c *gin.Context) {
+	kafkaRun.Run()
+	c.JSON(http.StatusCreated, gin.H{"message": "Push message success"})
 }
