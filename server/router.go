@@ -2,7 +2,6 @@ package server
 
 import (
 	"github.com/duyanh1904/learn-docker-go/controllers"
-	"github.com/duyanh1904/learn-docker-go/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,20 +12,22 @@ func NewRouter() *gin.Engine {
 
 	health := new(controllers.HealthController)
 	post := new(controllers.PostController)
+	user := new(controllers.UserController)
 
-	router.Use(middlewares.AuthMiddleware())
+	//router.Use(middlewares.AuthMiddleware())
 	router.GET("/health", health.Status)
 	router.POST("/add", post.CreatePost)
 	router.GET("/kafka", post.RunKafka)
+	router.GET("/users", user.Retrieve)
 
-	v1 := router.Group("v1")
-	{
-		userGroup := v1.Group("user")
-		{
-			user := new(controllers.UserController)
-			userGroup.GET("/:id", user.Retrieve)
-		}
-	}
+	//v1 := router.Group("v1")
+	//{
+	//	userGroup := v1.Group("user")
+	//	{
+	//		user := new(controllers.UserController)
+	//		userGroup.GET("/:id", user.Retrieve)
+	//	}
+	//}
 	return router
 
 }
