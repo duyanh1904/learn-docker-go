@@ -2,7 +2,6 @@ package mariabDB
 
 import (
 	"fmt"
-	"github.com/duyanh1904/learn-docker-go/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -10,7 +9,7 @@ import (
 const DB_USERNAME = "root"
 const DB_PASSWORD = "root"
 const DB_NAME = "kvshipping"
-const DB_HOST = "127.0.0.1"
+const DB_HOST = "host.docker.internal"
 const DB_PORT = "3312"
 
 var Db *gorm.DB
@@ -31,10 +30,10 @@ func connectDB() *gorm.DB {
 		return nil
 	}
 
-	err = db.AutoMigrate(&models.User{})
-	if err != nil {
-		return nil
-	}
+	//err = db.AutoMigrate(&models.User{})
+	//if err != nil {
+	//	return nil
+	//}
 
 	return db
 }

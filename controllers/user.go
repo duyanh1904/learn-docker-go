@@ -14,5 +14,5 @@ func (u UserController) Retrieve(c *gin.Context) {
 	var user []model.User
 	users := model.GetUsers(db, &user)
 
-	c.JSON(http.StatusCreated, gin.H{"message": "Posted successfully", "Data": map[string]interface{}{"data": users}})
+	c.JSON(http.StatusCreated, gin.H{"message": "Get data users", "Data": map[string]interface{}{"data": users}})
 }
