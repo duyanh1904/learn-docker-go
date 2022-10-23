@@ -16,3 +16,11 @@ func (u UserController) Retrieve(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, gin.H{"message": "Get data users", "Data": map[string]interface{}{"data": users}})
 }
+
+func (u UserController) Create(c *gin.Context) {
+	db := mariabDB.InitDb()
+	var user []model.User
+	users := model.CreateUser(db, &user)
+
+	c.JSON(http.StatusCreated, gin.H{"message": "Get data users", "Data": map[string]interface{}{"data": users}})
+}
