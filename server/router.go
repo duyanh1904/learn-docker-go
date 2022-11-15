@@ -19,7 +19,8 @@ func NewRouter() *gin.Engine {
 	router.POST("/add", post.CreatePost)
 	router.GET("/kafka", post.RunKafka)
 	router.GET("/users", user.Retrieve)
-	router.POST("/create", user.Create)
+	router.GET("/get-token", user.GenToken)
+	//router.POST("/create", user.Create)
 
 	//v1 := router.Group("v1")
 	//{
