@@ -54,3 +54,17 @@ func (p PostController) RunKafka(c *gin.Context) {
 	kafkaRun.Run()
 	c.JSON(http.StatusCreated, gin.H{"message": "Push message success"})
 }
+
+type Body struct {
+	// json tag to de-serialize json body
+	Name string `json:"name"`
+}
+
+func (p PostController) TestValidateApi(c *gin.Context) {
+	body := Body{}
+
+	if err := c.BindJSON(&body); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"message": "Request loi vcl", "err": err})
+	}
+	c.JSON(http.StatusAccepted, &body)
+}
