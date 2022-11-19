@@ -1,4 +1,4 @@
-FROM golang:1.16
+FROM golang:1.18
 
 WORKDIR /docker-go
 
@@ -13,6 +13,9 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     nano
+
+#install swag cli
+RUN go install github.com/swaggo/swag/cmd/swag@latest
 
 # re-compile
 RUN go install -mod=mod github.com/githubnemo/CompileDaemon

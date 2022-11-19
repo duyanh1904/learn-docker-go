@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	_ "github.com/santosh/gingo/docs"
 	"os"
 
 	"github.com/duyanh1904/learn-docker-go/config"
