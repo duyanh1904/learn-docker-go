@@ -17,6 +17,11 @@ RUN apt-get update && apt-get install -y \
 #install swag cli
 RUN go install github.com/swaggo/swag/cmd/swag@latest
 
+# Run the following command to install the Go protocol buffers plugin
+RUN go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+# gen go code
+#RUN protoc -I=. --go_out=. ./pb/grpc-server/v1/address.proto
+
 # re-compile
 RUN go install -mod=mod github.com/githubnemo/CompileDaemon
 
