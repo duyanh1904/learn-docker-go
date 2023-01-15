@@ -19,6 +19,7 @@ func NewRouter() *gin.Engine {
 
 	//router.Use(middlewares.AuthMiddleware())
 	router.GET("/health", health.Status)
+	router.GET("/JSON", health.JsonArrays)
 	router.POST("/add", post.CreatePost)
 	router.GET("/kafka", post.RunKafka)
 	router.GET("/users", user.Retrieve)
