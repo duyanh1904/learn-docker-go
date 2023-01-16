@@ -17,6 +17,8 @@ require (
 	github.com/swaggo/swag v1.8.7
 	go.mongodb.org/mongo-driver v1.10.1
 	golang.org/x/tools v0.3.0 // indirect
+	google.golang.org/grpc v1.46.2
+	google.golang.org/protobuf v1.28.0
 	gorm.io/driver/mysql v1.3.6
 	gorm.io/gorm v1.23.10
 )

@@ -4,7 +4,7 @@
 // 	protoc        v3.15.8
 // source: pb/grpc-server/v1/address.proto
 
-package tutorialpb
+package v1
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"

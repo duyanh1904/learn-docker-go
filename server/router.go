@@ -16,6 +16,7 @@ func NewRouter() *gin.Engine {
 	health := new(controllers.HealthController)
 	post := new(controllers.PostController)
 	user := new(controllers.UserController)
+	grpc := new(controllers.GrpcController)
 
 	//router.Use(middlewares.AuthMiddleware())
 	router.GET("/health", health.Status)
@@ -25,7 +26,7 @@ func NewRouter() *gin.Engine {
 	router.GET("/users", user.Retrieve)
 	router.GET("/get-token", user.GenToken)
 	router.GET("/validate", post.TestValidateApi)
-	//router.POST("/create", user.Create)
+	router.GET("/grpc", grpc.GetPerson)
 
 	//swag
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
