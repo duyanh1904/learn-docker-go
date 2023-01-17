@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"fmt"
-	"github.com/duyanh1904/learn-docker-go/mariabDB"
+	"github.com/duyanh1904/learn-docker-go/mariab_db"
 	model "github.com/duyanh1904/learn-docker-go/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
@@ -15,7 +15,7 @@ type UserController struct{}
 var hmacSampleSecret []byte
 
 func (u UserController) Retrieve(c *gin.Context) {
-	db := mariabDB.InitDb()
+	db := mariab_db.InitDb()
 	var user []model.User
 	users := model.GetUsers(db, &user)
 
@@ -39,10 +39,23 @@ func (u UserController) GenToken(c *gin.Context) {
 
 //
 //func (u UserController) Create(c *gin.Context) {
-//	db := mariabDB.InitDb()
+//	db := mariab_db.InitDb()
 //	var user []model.User
 //	users := model.CreateUser(db, &user)
 //
 //	c.JSON(http.StatusCreated, gin.H{"message": "Create success", "Data": map[string]interface{}{"data": user}})
 //	//c.JSON(http.StatusCreated, gin.H{"message": "Create success", "Data": map[string]interface{}{"data": users}})
 //}
+
+func (u UserController) Update(c *gin.Context) {
+	var user []model.User
+
+	if err := c.ShouldBindJSON(&user); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	name := c.PostForm("name")
+	age := c.PostForm("age")
+	c.JSON(http.StatusOK, gin.H{"name": name, "age": age, "user": user})
+}

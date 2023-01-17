@@ -17,16 +17,20 @@ func NewRouter() *gin.Engine {
 	post := new(controllers.PostController)
 	user := new(controllers.UserController)
 	grpc := new(controllers.GrpcController)
+	curl := new(controllers.CurlController)
 
 	//router.Use(middlewares.AuthMiddleware())
 	router.GET("/health", health.Status)
 	router.GET("/JSON", health.JsonArrays)
+	router.GET("/channel", health.MakeChannel)
 	router.POST("/add", post.CreatePost)
 	router.GET("/kafka", post.RunKafka)
 	router.GET("/users", user.Retrieve)
+	router.POST("/update", user.Update)
 	router.GET("/get-token", user.GenToken)
 	router.GET("/validate", post.TestValidateApi)
 	router.GET("/grpc", grpc.GetPerson)
+	router.GET("/get_list_partner", curl.GetListPartner)
 
 	//swag
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

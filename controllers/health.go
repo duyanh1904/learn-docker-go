@@ -29,3 +29,41 @@ func (h HealthController) JsonArrays(c *gin.Context) {
 
 	c.JSON(http.StatusOK, birds)
 }
+
+func (h HealthController) MakeChannel(c *gin.Context) {
+
+	// select
+	//queue := make(chan int)
+	//done := make(chan bool)
+	//go func() {
+	//	for i := 0; i < 10; i++ {
+	//		queue <- i
+	//	}
+	//	done <- true
+	//}()
+	//for {
+	//	select {
+	//	case v := <-queue:
+	//		fmt.Println(v)
+	//	case <-done:
+	//		fmt.Println("done")
+	//		return
+	//	}
+	//}
+
+	//close channel
+
+	queue := make(chan int, 10)
+	go func() {
+		for i := 0; i < 10; i++ {
+			queue <- i
+		}
+		close(queue)
+	}()
+
+	for value := range queue {
+		fmt.Println(value)
+	}
+
+	c.String(http.StatusOK, "Working!")
+}

@@ -9,6 +9,7 @@ require (
 	github.com/go-openapi/spec v0.20.7 // indirect
 	github.com/go-openapi/swag v0.22.3 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/imroc/req v0.3.2
 	github.com/santosh/gingo v0.0.0-20221107171712-2efa957aa415
 	github.com/spf13/viper v1.12.0
 	github.com/stretchr/testify v1.8.1

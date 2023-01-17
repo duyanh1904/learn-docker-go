@@ -6,9 +6,9 @@ import (
 )
 
 type User struct {
-	ID        uint32    `gorm:"primary_key;auto_increment" json:"id"`
-	Name      string    `gorm:"size:255;not null;unique" json:"name"`
-	Email     string    `gorm:"size:100;not null;unique" json:"email"`
+	ID        uint32    `gorm:"primary_key;auto_increment" json:"id" binding:"required,max=10"`
+	Name      string    `gorm:"size:255;not null;unique" json:"name" binding:"required,max=10"`
+	Email     string    `gorm:"size:100;not null;unique" json:"email" binding:"required,max=10"`
 	Password  string    `gorm:"size:100;not null;" json:"password"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
 	UpdatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"updated_at"`

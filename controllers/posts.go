@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	model "github.com/duyanh1904/learn-docker-go/models"
-	database "github.com/duyanh1904/learn-docker-go/mongoDb"
+	database "github.com/duyanh1904/learn-docker-go/mongo_db"
 	kafkaRun "github.com/duyanh1904/learn-docker-go/worker"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
