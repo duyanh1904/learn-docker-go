@@ -31,6 +31,7 @@ func NewRouter() *gin.Engine {
 	router.GET("/validate", post.TestValidateApi)
 	router.GET("/grpc", grpc.GetPerson)
 	router.GET("/get_list_partner", curl.GetListPartner)
+	router.GET("/insert", health.Insert)
 
 	//swag
 	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
