@@ -8,6 +8,10 @@ import (
 	database "github.com/duyanh1904/learn-docker-go/mongo_db"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"gorm.io/gorm/utils"
+	"log"
+	"math/rand"
+	"mime/multipart"
 	"net/http"
 	"strconv"
 	"sync"
@@ -38,28 +42,6 @@ func (h HealthController) JsonArrays(c *gin.Context) {
 }
 
 func (h HealthController) MakeChannel(c *gin.Context) {
-
-	// select
-	//queue := make(chan int)
-	//done := make(chan bool)
-	//go func() {
-	//	for i := 0; i < 10; i++ {
-	//		queue <- i
-	//	}
-	//	done <- true
-	//}()
-	//for {
-	//	select {
-	//	case v := <-queue:
-	//		fmt.Println(v)
-	//	case <-done:
-	//		fmt.Println("done")
-	//		return
-	//	}
-	//}
-
-	//close channel
-
 	queue := make(chan int, 10)
 	go func() {
 		for i := 0; i < 10; i++ {
@@ -73,6 +55,37 @@ func (h HealthController) MakeChannel(c *gin.Context) {
 	}
 
 	c.String(http.StatusOK, "Working!")
+}
+
+type csvUploadInput struct {
+	CsvFile *multipart.FileHeader `form:"file" binding:"required"`
+}
+
+func (h HealthController) ImportCsv(c *gin.Context) {
+	file, err := c.FormFile("file")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err := c.ShouldBind(&file); err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println(file.Filename)
+
+	err = c.SaveUploadedFile(file, "kafka-logs/"+utils.ToString(rand.Int()))
+	if err != nil {
+		log.Fatal(err)
+	}
+	c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
+}
+
+type BookRecord struct {
+	Title        string
+	Author       string
+	Price        int32
+	Discount     int32
+	Organization string
 }
 
 func (h HealthController) Insert(c *gin.Context) {

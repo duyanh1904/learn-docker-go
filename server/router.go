@@ -23,6 +23,8 @@ func NewRouter() *gin.Engine {
 	router.GET("/health", health.Status)
 	router.GET("/JSON", health.JsonArrays)
 	router.GET("/channel", health.MakeChannel)
+	router.POST("/import", health.ImportCsv)
+
 	router.POST("/add", post.CreatePost)
 	router.GET("/kafka", post.RunKafka)
 	router.GET("/users", user.Retrieve)
